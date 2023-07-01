@@ -26,7 +26,6 @@ const Home  = () => {
             <div className="container5">
                 <img src={home5} alt="" className="home5" />
             </div>
-            .container6
         </div>
     )
 }
