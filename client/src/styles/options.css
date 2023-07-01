@@ -1,0 +1,11 @@
+table{
+    font-family: Inter, sans-serif;
+}
+
+table > td {
+    font-size: 2rem;
+}
+
+.options-container{
+    width:80vw;
+}

@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
-import io from 'socket.io-client';
+import React from 'react';
 import TableComp from '../components/TableComp';
+import Navbar from '../components/Navbar';
+import "../styles/options.css";
 
 const Options = () => {
-
-
   return (
     <div>
-      {<TableComp />}
+        <Navbar/>
+        <div className="options-container">
+         <TableComp/>
+        </div>
     </div>
   );
 };

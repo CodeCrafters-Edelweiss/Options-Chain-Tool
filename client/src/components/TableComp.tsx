@@ -32,7 +32,7 @@ const TableComp = () => {
   return (
     <>
       <TableContainer>
-        <Table variant="striped" colorScheme="teal">
+        <Table size='sm' variant="simple" colorScheme="teal">
           <Thead>
             <Tr>
               <Th>CALLS</Th>
@@ -61,27 +61,27 @@ const TableComp = () => {
           <Tbody>
             
             <Tr>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
-              <Td>element</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
             </Tr>
           </Tbody>
         </Table>
