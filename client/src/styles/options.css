@@ -1,11 +1,15 @@
-table{
-    font-family: Inter, sans-serif;
+table {
+    font-family: Raleway, sans-serif;
 }
-
-table > td {
+.table-head{
+    color:white;
     font-size: 2rem;
 }
 
 .options-container{
-    width:80vw;
+    position: relative;
+    top: 20vh;
+    left: 5vw;
+    width: 85vw;
+    z-index: -1;
 }

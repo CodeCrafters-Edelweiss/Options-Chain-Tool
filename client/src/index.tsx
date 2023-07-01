@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-      <ChakraProvider >
+      <ChakraProvider theme={theme} >
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <App />
       </ChakraProvider>

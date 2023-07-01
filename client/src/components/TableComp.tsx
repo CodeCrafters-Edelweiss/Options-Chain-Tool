@@ -8,6 +8,7 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
+import "../styles/options.css";
 
 import React, { useEffect } from "react";
 import io from "socket.io-client";
@@ -32,34 +33,80 @@ const TableComp = () => {
   return (
     <>
       <TableContainer>
-        <Table size='sm' variant="simple" colorScheme="teal">
+        <Table size='sm' variant="simple" colorScheme="green">
           <Thead>
-            <Tr>
-              <Th>CALLS</Th>
-              <Th>OI</Th>
-              <Th>CHNG IN OI</Th>
-              <Th>VOLUME</Th>
-              <Th>IV</Th>
-              <Th>LTP</Th>
-              <Th>CHNG</Th>
-              <Th>BID QTY</Th>
-              <Th>ASK</Th>
-              <Th>ASK QTY</Th>
-              <Th>STRIKE</Th>
-              <Th>BID QTY</Th>
-              <Th>BID</Th>
-              <Th>ASK</Th>
-              <Th>ASK QTY</Th>
-              <Th>CHNG</Th>
-              <Th>LTP</Th>
-              <Th>IV</Th>
-              <Th>VOLUME</Th>
-              <Th>CHNG IN OI</Th>
-              <Th>OI</Th>
+            <Tr style={{backgroundColor:"#062d17"}}>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>CALLS</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>OI</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>CHNG IN OI</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>VOLUME</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>IV</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>LTP</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>CHNG</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>BID QTY</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>ASK</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>ASK QTY</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>STRIKE</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>BID QTY</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>BID</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>ASK</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>ASK QTY</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>CHNG</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>LTP</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>IV</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>VOLUME</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>CHNG IN OI</Th>
+              <Th className="table-head" style={{color:'white', fontSize:"0.85rem"}}>OI</Th>
             </Tr>
           </Thead>
           <Tbody>
             
+            <Tr>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+            </Tr>
+            <Tr>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+              <Td isNumeric>100</Td>
+            </Tr>
             <Tr>
               <Td isNumeric>100</Td>
               <Td isNumeric>100</Td>
