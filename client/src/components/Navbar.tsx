@@ -3,12 +3,16 @@ import '../styles/homePage.css';
 import {useColorMode} from "@chakra-ui/react";
 
 const Navbar = () => {
-    const {toggleColorMode} = useColorMode();
+    const {colorMode, toggleColorMode} = useColorMode();
 
     return (
         <>
             <input type="checkbox" id="active" />
-            <label htmlFor="active" className="menu-btn"><span></span></label>
+            {
+                colorMode === 'dark' ?
+            <label htmlFor="active" className="menu-btn"><span></span></label> :
+                    <label htmlFor="active" className="menu-btn-dark"><span></span></label>
+            }
             <label htmlFor="active" className="close"></label>
             <div className="wrapper">
                 <ul>

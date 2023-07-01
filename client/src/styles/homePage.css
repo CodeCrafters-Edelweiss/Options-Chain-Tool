@@ -53,7 +53,7 @@ body{
     height: 100%;
     width: 100%;
     background: #000;
-    font-family: "Poppins";
+    font-family: Raleway,sans-serif;
     text-align: center;
     align-items: right;
     /*background: linear-gradient(90deg, #f92c78, #4114a1);*/
@@ -84,6 +84,43 @@ body{
     /* background: linear-gradient(-45deg, #e3eefe 0%, #efddfb 100%); */
     transition: all 0.3s ease-in-out;
     color: white;
+}
+.menu-btn-dark{
+    position: absolute;
+    z-index: 2;
+    right: 20px;
+    /*left: 20px; */
+    top: 20px;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    /*color: #fff;*/
+    /*background: linear-gradient(90deg, #f92c78, #4114a1);*/
+    /* background: linear-gradient(375deg, #1cc7d0, #2ede98); */
+    /* background: linear-gradient(-45deg, #e3eefe 0%, #efddfb 100%); */
+    transition: all 0.3s ease-in-out;
+    color: black;
+}
+.menu-btn-dark span,
+.menu-btn-dark:before,
+.menu-btn-dark:after{
+    content: "";
+    position: absolute;
+    top: calc(50% - 1px);
+    left: 30%;
+    width: 40%;
+    border-bottom: 2px solid #000;
+    transition: transform .6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.menu-btn-dark:before{
+    transform: translateY(-8px);
+}
+.menu-btn-dark:after{
+    transform: translateY(8px);
 }
 .menu-btn span,
 .menu-btn:before,
@@ -148,6 +185,7 @@ body{
     line-height: 50px;
     margin: 5px 30px;
     opacity: 0;
+    width: 14vw;
     transition: all 0.3s ease;
     transition: transform .6s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
