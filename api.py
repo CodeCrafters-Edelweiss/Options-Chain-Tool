@@ -4,6 +4,7 @@ from tabulate import tabulate
 
 app = Flask(__name__)
 
+
 @app.route('/market-data')
 def get_market_data():
     # Define the Java command
@@ -32,7 +33,7 @@ def get_market_data():
             table = tabulate(market_data, headers="keys", tablefmt="grid")
 
         # Print the updated table
-        print(table)
+        # print(table)
 
     # Wait for the process to complete
     process.wait()
