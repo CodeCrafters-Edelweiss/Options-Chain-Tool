@@ -1,84 +1,147 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Select,
+} from "@chakra-ui/react";
+import "../styles/options.css";
 
-interface OptionChainRecord {
+interface MarketData {
   symbol: string;
-  expiryDate: string;
-  price: number;
-  // Add other properties based on your requirement
+  LTP: string;
+  LTQ: string;
+  totalTradedVolume: string;
+  bestBid: string;
+  bestAsk: string;
+  bestBidQty: string;
+  bestAskQty: string;
+  openInterest: string;
+  timestamp: string;
+  sequence: string;
+  prevClosePrice: string;
+  prevOpenInterest: string;
+  expiry_date: string;
+  strike_price: string;
+  change: string;
+  IV: number;
 }
 
 const OptionChainComponent: React.FC = () => {
-  const [optionChainData, setOptionChainData] = useState<OptionChainRecord[]>([]);
-  const [filteredOptionChainData, setFilteredOptionChainData] = useState<OptionChainRecord[]>([]);
-  const [selectedSymbol, setSelectedSymbol] = useState<string>('');
-  const [selectedExpiryDate, setSelectedExpiryDate] = useState<string>('');
-  const [selectedPrice, setSelectedPrice] = useState<number | null>(null);
-
-  const expiryDates: string[] = ['2023-07-01', '2023-07-02', '2023-07-03', '2023-07-04'];
-  // Add other expiry dates based on your requirement
-
-  const priceOptions: { label: string; value: number | null }[] = [
-    { label: 'All', value: null },
-    { label: 'Less than 50', value: 50 },
-    { label: '50 to 100', value: 100 },
-    { label: '100 to 150', value: 150 },
-    // Add other price options as needed
-  ];
-
-  const fetchOptionChainData = async () => {
-    try {
-      const response = await fetch('https://www.nseindia.com/api/option-chain-indices?symbol=NIFTY');
-      const data = await response.json();
-      const { records: optionChainRecords } = data['records']['data'];
-
-      setOptionChainData(optionChainRecords);
-    } catch (error) {
-      console.error('Error fetching option chain data:', error);
-    }
-  };
+  const [marketData, setMarketData] = useState<MarketData[]>([]);
+  const [selectedSymbol, setSelectedSymbol] = useState("");
+  const [selectedStrikePrice, setSelectedStrikePrice] = useState("");
+  const [selectedExpiryDate, setSelectedExpiryDate] = useState("");
 
   useEffect(() => {
-    fetchOptionChainData();
+    // Sample JSON response data
+    const responseData: MarketData[] = [
+      {
+        symbol: "MAINIDX",
+        LTP: "1854880",
+        LTQ: "0",
+        totalTradedVolume: "0",
+        bestBid: "0",
+        bestAsk: "0",
+        bestBidQty: "0",
+        bestAskQty: "0",
+        openInterest: "0",
+        timestamp: "Sun Jul 02 13:24:58 IST 2023",
+        sequence: "1",
+        prevClosePrice: "1848775",
+        prevOpenInterest: "0\n",
+        expiry_date: "'",
+        strike_price: "",
+        change: "",
+        IV: 1.99,
+      },
+      {
+        "symbol": "FINANCI",
+        "LTP": "1940360",
+        "LTQ": "0",
+        "totalTradedVolume": "0",
+        "bestBid": "0",
+        "bestAsk": "0",
+        "bestBidQty": "0",
+        "bestAskQty": "0",
+        "openInterest": "0",
+        "timestamp": "Sun Jul 02 13:24:58 IST 2023",
+        "sequence": "2",
+        "prevClosePrice": "1932270",
+        "prevOpenInterest": "0\n",
+        "expiry_date": "ALS'",
+        "strike_price": "",
+        "change": "",
+        "IV": 1.99
+      },
+      {
+        "symbol": "ALLBANK",
+        "LTP": "4398250",
+        "LTQ": "0",
+        "totalTradedVolume": "0",
+        "bestBid": "0",
+        "bestAsk": "0",
+        "bestBidQty": "0",
+        "bestAskQty": "0",
+        "openInterest": "0",
+        "timestamp": "Sun Jul 02 13:24:58 IST 2023",
+        "sequence": "3",
+        "prevClosePrice": "4379020",
+        "prevOpenInterest": "0\n",
+        "expiry_date": "S'",
+        "strike_price": "",
+        "change": "",
+        "IV": 1.99
+      },
+      // ... rest of the data
+    ];
+
+    setMarketData(responseData);
   }, []);
 
-  useEffect(() => {
-    applyFilters(selectedSymbol, selectedExpiryDate, selectedPrice);
-  }, [selectedSymbol, selectedExpiryDate, selectedPrice]);
-
-  const applyFilters = (symbol: string, expiryDate: string, price: number | null) => {
-    let filteredData = optionChainData;
-
-    if (symbol) {
-      filteredData = filteredData.filter((record) => record.symbol === symbol);
-    }
-
-    if (expiryDate) {
-      filteredData = filteredData.filter((record) => record.expiryDate === expiryDate);
-    }
-
-    if (price !== null) {
-      filteredData = filteredData.filter(
-        (record) => record.price >= price && record.price <= price + 50
-      );
-    }
-
-    setFilteredOptionChainData(filteredData);
+  const createDropdownOptions = (values: string[]): JSX.Element[] => {
+    return values.map((value, index) => (
+      <option key={index} value={value}>
+        {value}
+      </option>
+    ));
   };
 
+  const symbolOptions = createDropdownOptions(
+    marketData.map((record) => record.symbol)
+  );
+
+  const expiryDateOptions = createDropdownOptions(
+    marketData.map((record) => record.expiry_date)
+  );
+
+  const strikePriceOptions = createDropdownOptions(
+    marketData.map((record) => record.strike_price)
+  );
+
+  const filteredData = marketData.filter((data) => {
+    return (
+      (!selectedSymbol || data.symbol === selectedSymbol) &&
+      (!selectedStrikePrice || data.strike_price === selectedStrikePrice) &&
+      (!selectedExpiryDate || data.expiry_date === selectedExpiryDate)
+    );
+  });
+
   return (
-    <div>
+    <div className="filter-container">
       <h1>Option Chain</h1>
       <div>
         <label>Symbol:</label>
-        <select value={selectedSymbol} onChange={(e) => setSelectedSymbol(e.target.value)}>
+        <select
+          value={selectedSymbol}
+          onChange={(e) => setSelectedSymbol(e.target.value)}
+        >
           <option value="">All</option>
-          <option value="NIFTY">NIFTY</option>
-          <option value="BANKNIFTY">BANKNIFTY</option>
-          {/* <option value="">ALLBANKS</option>
-          <option value="MAINIDX ">MAINIDX</option>
-          <option value="FINANCIALS">FINANCIALS</option>
-          <option value="MIDCAPS">MIDCAPS</option> */}
-          {/* Add other symbols based on your requirement */}
+          {symbolOptions}
         </select>
       </div>
       <div>
@@ -88,46 +151,125 @@ const OptionChainComponent: React.FC = () => {
           onChange={(e) => setSelectedExpiryDate(e.target.value)}
         >
           <option value="">All</option>
-          {expiryDates.map((date, index) => (
-            <option key={index} value={date}>
-              {date}
-            </option>
-          ))}
+          {expiryDateOptions}
         </select>
       </div>
       <div>
-        <label>Price:</label>
+        <label>Strike Price:</label>
         <select
-          value={selectedPrice !== null ? selectedPrice.toString() : ''}
-          onChange={(e) =>
-            setSelectedPrice(e.target.value ? parseFloat(e.target.value) : null)
-          }
+          value={selectedStrikePrice}
+          onChange={(e) => setSelectedStrikePrice(e.target.value)}
         >
-          {priceOptions.map((option, index) => (
-            <option key={index} value={option.value?.toString()}>
-              {option.label}
-            </option>
-          ))}
+          <option value="">All</option>
+          {strikePriceOptions}
         </select>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>Expiry Date</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredOptionChainData.map((record, index) => (
-            <tr key={index}>
-              <td>{record.symbol}</td>
-              <td>{record.expiryDate}</td>
-              <td>{record.price}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <TableContainer>
+        <Table size="sm" variant="simple" colorScheme="green">
+          <Thead>
+            <Tr style={{ backgroundColor: "#062d17" }}>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                SYMBOL
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                CALLS
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                OI
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                CHNG IN OI
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                VOLUME
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                IV
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                LTP
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                CHNG
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                BID QTY
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                ASK
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                ASK QTY
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                STRIKE
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                BID QTY
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                BID
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                ASK
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                ASK QTY
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                CHNG
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                LTP
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                IV
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                VOLUME
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                CHNG IN OI
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                OI
+              </Th>
+              <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                CALLS
+              </Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {filteredData.map((data) => (
+              <Tr key={data.symbol}>
+                <Td>{data.symbol}</Td>
+                <Td>{data.LTQ}</Td>
+                <Td>{data.openInterest}</Td>
+                <Td>{data.change}</Td>
+                <Td>{data.totalTradedVolume}</Td>
+                <Td>{data.IV}</Td>
+                <Td>{data.LTP}</Td>
+                <Td>{data.change}</Td>
+                <Td>{data.bestBidQty}</Td>
+                <Td>{data.bestAsk}</Td>
+                <Td>{data.bestAskQty}</Td>
+                <Td>{data.strike_price}</Td>
+                <Td>{data.bestBidQty}</Td>
+                <Td>{data.bestBid}</Td>
+                <Td>{data.bestAsk}</Td>
+                <Td>{data.bestAskQty}</Td>
+                <Td>{data.change}</Td>
+                <Td>{data.LTP}</Td>
+                <Td>{data.IV}</Td>
+                <Td>{data.totalTradedVolume}</Td>
+                <Td>{data.change}</Td>
+                <Td>{data.openInterest}</Td>
+                <Td>{data.LTQ}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };
