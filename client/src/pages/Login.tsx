@@ -53,6 +53,9 @@ const Login = () => {
     }
     else {
         navigate('/options');
+        return (
+            <></>
+        );
     }
 }
 

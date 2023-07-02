@@ -16,9 +16,9 @@ import TableHead from "./TableHead";
 
 
 const TableComp = () => {// State to store market data
-  const [selectedSymbol, setSelectedSymbol] = useState(""); // State to store selected symbol
-  const [selectedStrikePrice, setSelectedStrikePrice] = useState(""); // State to store selected strike price
-  const [selectedExpiryDate, setSelectedExpiryDate] = useState(""); // State to store selected expiry date
+  const [selectedSymbol, setSelectedSymbol] = useState<string>(""); // State to store selected symbol
+  const [selectedStrikePrice, setSelectedStrikePrice] = useState<string>(""); // State to store selected strike price
+  const [selectedExpiryDate, setSelectedExpiryDate] = useState<string>(""); // State to store selected expiry date
   const [symbols,setSymbols] = useState<string[]>([]);
   const [strikePrices,setStrikePrices] = useState<string[]>([]);
   const [expiryDates,setExpiryDates] = useState<string[]>([]);
@@ -164,7 +164,7 @@ const TableComp = () => {// State to store market data
 
   return (
       <>
-        <div className="filter-container" style={{paddingBottom:'20px'}}>
+        <div className="filter-container" style={{paddingBottom:"20px",zIndex:"10000"}}>
           <SimpleGrid columns={3}>
             <Box maxW='sm'>
 
