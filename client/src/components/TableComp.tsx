@@ -57,7 +57,7 @@ const TableComp = () => {// State to store market data
       "IV": 1.99
     },
     {
-      "symbol": "FINANCI",
+      "symbol": "FINANCIALS",
       "LTP": "1940360",
       "LTQ": "0",
       "totalTradedVolume": "0",
@@ -164,7 +164,7 @@ const TableComp = () => {// State to store market data
 
   return (
       <>
-        <div className="filter-container">
+        <div className="filter-container" style={{paddingBottom:'20px'}}>
           <SimpleGrid columns={3}>
             <Box maxW='sm'>
 
