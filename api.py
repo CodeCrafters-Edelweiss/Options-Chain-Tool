@@ -5,6 +5,8 @@ import socket
 
 app = Flask(__name__)
 
+symbols = ("MAINIDX","ALLBANKS","FINANCIALS","MIDCAPS","MIDCAP")
+
 def update_market_data():
     global data_count, emit_batch_size
 
@@ -14,12 +16,17 @@ def update_market_data():
     command = [java_cmd] + args
     process = Popen(command, stdout=PIPE, universal_newlines=True)
 
+
     # Establish a socket connection with the client
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect(('localhost', 9000))
 
     # Send the data to the client in batches
-    batch_data = []
+    #* The first list contains expiry dates
+    #* The second list contains strike prices
+    #* The third list contains data
+    batch_data = [[],[],[]]
+
     for line in process.stdout:
         if line.startswith("Publishing MarketData"):
             line = line.replace("Publishing MarketData{", "").replace("}", "")
@@ -27,19 +34,31 @@ def update_market_data():
             items = line.split(", ")
             for item in items:
                 key, value = item.split('=')
+                key = key.strip()  # Removing any leading or trailing whitespace
+                value = value.strip()  # Removing any leading or trailing whitespace
                 data[key] = value
+            
+            data["symbol"] = data["symbol"][1:-1]
+            
+            for symbol_ in symbols:
+                if symbol_ in data["symbol"]:
 
-            expiry_date = data['symbol'][8:15]
-            strike_price = data['symbol'][15:20]
-            change = data['symbol'][20:-1]
+            # Extract additional columns
+                    len_symbol = len(symbol_)
+                    if(len(data["symbol"])>10):
+                        data['change'] = data["symbol"][-2:]
+                        data['expiry_date'] = data['symbol'][len_symbol:len_symbol+7]
 
-            # Add additional columns to the data dictionary
-            data['expiry_date'] = expiry_date
-            data['strike_price'] = strike_price
-            data['change'] = change
-            data['IV'] = 1.99
+                        data['strike_price'] = data['symbol'][len_symbol+7:-2]
+            
+                        data['symbol'] = symbol_
 
-            batch_data.append(data)
+                        # Add additional columns to the data dictionary
+                        data['IV'] = 1.99
+
+                        batch_data[0].append(data['expiry_date'])
+                        batch_data[1].append(data['strike_price'])
+                        batch_data[2].append(data)
 
             if len(batch_data) >= emit_batch_size:
                 # Emit the batch data to the client file
