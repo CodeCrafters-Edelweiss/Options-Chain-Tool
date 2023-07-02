@@ -15,7 +15,6 @@
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
     "@types/socket.io-client": "^3.0.0",
     "axios": "^1.4.0",
     "framer-motion": "^10.12.18",
@@ -52,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-dom": "^18.2.6",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "eslint": "^8.0.1",
