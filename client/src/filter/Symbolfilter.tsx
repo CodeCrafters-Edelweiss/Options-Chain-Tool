@@ -60,42 +60,42 @@ const OptionChainComponent: React.FC = () => {
         IV: 1.99,
       },
       {
-        "symbol": "FINANCI",
-        "LTP": "1940360",
-        "LTQ": "0",
-        "totalTradedVolume": "0",
-        "bestBid": "0",
-        "bestAsk": "0",
-        "bestBidQty": "0",
-        "bestAskQty": "0",
-        "openInterest": "0",
-        "timestamp": "Sun Jul 02 13:24:58 IST 2023",
-        "sequence": "2",
-        "prevClosePrice": "1932270",
-        "prevOpenInterest": "0\n",
-        "expiry_date": "ALS'",
-        "strike_price": "",
-        "change": "",
-        "IV": 1.99
+        symbol: "FINANCI",
+        LTP: "1940360",
+        LTQ: "0",
+        totalTradedVolume: "0",
+        bestBid: "0",
+        bestAsk: "0",
+        bestBidQty: "0",
+        bestAskQty: "0",
+        openInterest: "0",
+        timestamp: "Sun Jul 02 13:24:58 IST 2023",
+        sequence: "2",
+        prevClosePrice: "1932270",
+        prevOpenInterest: "0\n",
+        expiry_date: "ALS'",
+        strike_price: "",
+        change: "",
+        IV: 1.99,
       },
       {
-        "symbol": "ALLBANK",
-        "LTP": "4398250",
-        "LTQ": "0",
-        "totalTradedVolume": "0",
-        "bestBid": "0",
-        "bestAsk": "0",
-        "bestBidQty": "0",
-        "bestAskQty": "0",
-        "openInterest": "0",
-        "timestamp": "Sun Jul 02 13:24:58 IST 2023",
-        "sequence": "3",
-        "prevClosePrice": "4379020",
-        "prevOpenInterest": "0\n",
-        "expiry_date": "S'",
-        "strike_price": "",
-        "change": "",
-        "IV": 1.99
+        symbol: "ALLBANK",
+        LTP: "4398250",
+        LTQ: "0",
+        totalTradedVolume: "0",
+        bestBid: "0",
+        bestAsk: "0",
+        bestBidQty: "0",
+        bestAskQty: "0",
+        openInterest: "0",
+        timestamp: "Sun Jul 02 13:24:58 IST 2023",
+        sequence: "3",
+        prevClosePrice: "4379020",
+        prevOpenInterest: "0\n",
+        expiry_date: "S'",
+        strike_price: "",
+        change: "",
+        IV: 1.99,
       },
       // ... rest of the data
     ];
@@ -136,33 +136,33 @@ const OptionChainComponent: React.FC = () => {
       <h1>Option Chain</h1>
       <div>
         <label>Symbol:</label>
-        <select
+        <Select
           value={selectedSymbol}
           onChange={(e) => setSelectedSymbol(e.target.value)}
         >
           <option value="">All</option>
           {symbolOptions}
-        </select>
+        </Select>
       </div>
       <div>
         <label>Expiry Date:</label>
-        <select
+        <Select
           value={selectedExpiryDate}
           onChange={(e) => setSelectedExpiryDate(e.target.value)}
         >
           <option value="">All</option>
           {expiryDateOptions}
-        </select>
+        </Select>
       </div>
       <div>
         <label>Strike Price:</label>
-        <select
+        <Select
           value={selectedStrikePrice}
           onChange={(e) => setSelectedStrikePrice(e.target.value)}
         >
           <option value="">All</option>
           {strikePriceOptions}
-        </select>
+        </Select>
       </div>
       <TableContainer>
         <Table size="sm" variant="simple" colorScheme="green">
@@ -273,5 +273,6 @@ const OptionChainComponent: React.FC = () => {
     </div>
   );
 };
+
 
 export default OptionChainComponent;
