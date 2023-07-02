@@ -1,47 +1,75 @@
 from flask import Flask, jsonify
 from subprocess import Popen, PIPE
-from tabulate import tabulate
+from apscheduler.schedulers.background import BackgroundScheduler
+import socket
 
 app = Flask(__name__)
 
+def update_market_data():
+    global data_count, emit_batch_size
 
-@app.route('/market-data')
-def get_market_data():
-    # Define the Java command
+    # Execute the Java command using subprocess and capture the output
     java_cmd = 'java'
-    args = ['-Ddebug=true', '-Dspeed=2.0', '-classpath', './feed-play-1.0.jar', 'hackathon.player.Main', 'dataset.csv', '9011']
-
-    # Construct the command list
+    args = ['-Ddebug=true', '-Dspeed=2.0', '-classpath', './feed-play-1.0.jar', 'hackathon.player.Main', 'dataset.csv', '9019']
     command = [java_cmd] + args
-
-    # Execute the Java command using subprocess
     process = Popen(command, stdout=PIPE, universal_newlines=True)
 
-    # Read the output and update the table in real-time
-    market_data = []
-    table_headers = set()
-    table = ""
+    # Establish a socket connection with the client
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect(('localhost', 9000))
 
-    while True:
-        line = process.stdout.readline()
-        if line == '' and process.poll() is not None:
-            break
-
+    # Send the data to the client in batches
+    batch_data = []
+    for line in process.stdout:
         if line.startswith("Publishing MarketData"):
-            kv_pairs = line.strip().split(', ')
-            market_data.append({kv.split('=')[0]: kv.split('=')[1] for kv in kv_pairs})
-            table = tabulate(market_data, headers="keys", tablefmt="grid")
+            line = line.replace("Publishing MarketData{", "").replace("}", "")
+            data = {}
+            items = line.split(", ")
+            for item in items:
+                key, value = item.split('=')
+                data[key] = value
 
-        # Print the updated table
-        # print(table)
+            expiry_date = data['symbol'][8:15]
+            strike_price = data['symbol'][15:20]
+            change = data['symbol'][20:-1]
 
-    # Wait for the process to complete
-    process.wait()
+            # Add additional columns to the data dictionary
+            data['expiry_date'] = expiry_date
+            data['strike_price'] = strike_price
+            data['change'] = change
+            data['IV'] = 1.99
+
+            batch_data.append(data)
+
+            if len(batch_data) >= emit_batch_size:
+                # Emit the batch data to the client file
+                client_socket.sendall(str(batch_data).encode())
+                batch_data = []
+
+        data_count += 1
+
+    # Emit any remaining data in the last batch
+    if batch_data:
+        client_socket.sendall(str(batch_data).encode())
+
+    # Close the socket connection
+    client_socket.close()
 
     # Close the process
     process.stdout.close()
 
-    return jsonify({'market_data': market_data})
+@app.route('/market-data')
+def get_market_data():
+    global data_count
+    return jsonify({'data_count': data_count})
 
 if __name__ == '__main__':
+    data_count = 0  # Counter for data entries
+    emit_batch_size = 100  # Specify the amount of data to emit at a time
+
+    # Schedule the market data update task every 2 seconds
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(update_market_data, 'interval', seconds=2)
+    scheduler.start()
+
     app.run()
