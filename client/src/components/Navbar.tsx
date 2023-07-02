@@ -1,4 +1,5 @@
 import React from 'react';
+import {useNavigate} from "react-router-dom";
 import '../styles/homePage.css';
 import {useColorMode} from "@chakra-ui/react";
 import { createClient } from '@supabase/supabase-js'
@@ -11,6 +12,7 @@ import {
 
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const {colorMode, toggleColorMode} = useColorMode();
     const supabase = createClient('https://fxfvtdqzhrxvphgmwdab.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZnZ0ZHF6aHJ4dnBoZ213ZGFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgyNDQwNjksImV4cCI6MjAwMzgyMDA2OX0.osISLf5y3ftS-gpunBr1mWlPC3WLRHa3o4Or__Eos9w');
 
@@ -50,6 +52,7 @@ const Navbar = () => {
                     Thank you for using this application.
                 </AlertDescription>
             </Alert>
+        navigate('/login');
     }
 
     return (
