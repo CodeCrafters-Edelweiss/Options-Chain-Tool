@@ -30,26 +30,26 @@ const Login = () => {
         return (
             <div className="container" style={{width:"100vw",height:"100vh", background:" #2A2A2D"}}>
                 <AbsoluteCenter axis='both' style={{width:"28vw",background:"black",borderRadius:"25px",padding:"5vh 5vw", backdropFilter:'blur(5px)'}}>
-                    <Auth supabaseClient={supabase} appearance={{
-                        theme: ThemeSupa,
-                        variables: {
-                            default: {
-                                colors: {
-                                    brand: 'green',
-                                    brandAccent: 'darkgreen',
-                                },
-                            },
-                        }, }} providers={['google', 'facebook', 'twitter']} theme='dark' localization={{
-                        variables: {
-                            sign_in: {
-                                email_label: 'Email Password',
-                                password_label: 'Password',
-                            },
+            <Auth supabaseClient={supabase} appearance={{
+                theme: ThemeSupa,
+                variables: {
+                    default: {
+                        colors: {
+                            brand: 'green',
+                            brandAccent: 'darkgreen',
                         },
-                    }}/>
+                    },
+                }, }} providers={['google', 'facebook', 'twitter']} theme='dark' localization={{
+                variables: {
+                    sign_in: {
+                        email_label: 'Email Password',
+                        password_label: 'Password',
+                    },
+                },
+            }}/>
                 </AbsoluteCenter>
             </div>
-        )
+                )
     }
     else {
         navigate('/options');
