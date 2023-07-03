@@ -66,6 +66,7 @@ const Navbar = () => {
             <label htmlFor="active" className="close"></label>
             <div className="wrapper">
                 <ul>
+                    <li><a href="/">Home</a></li>
                     <li><a href="/login">Login</a></li>
                     <li><a href="/options">Option Chain</a></li>
                     <li><a href="#" id="colorModeToggle" onClick={toggleColorMode}>Dark Mode</a></li>

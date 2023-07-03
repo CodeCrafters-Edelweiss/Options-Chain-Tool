@@ -2,8 +2,6 @@ import React from 'react';
 import home1 from "../assets/home1.png";
 import home2 from "../assets/home2.png";
 import home3 from "../assets/home3.png";
-import home4 from "../assets/home4.png";
-import home5 from "../assets/home5.png";
 import Navbar from "../components/Navbar";
 import '../styles/homePage.css';
 
@@ -13,18 +11,13 @@ const Home  = () => {
             <Navbar/>
             <div className="container1">
                 <img src={home1} alt="" className="home1" />
+                <button className='browseOptions'><a href="/login">Browse Options</a></button>
             </div>
-            <div className="container2" style={{ paddingTop: "20vh" }}>
+            <div className="container2">
                 <img src={home2} alt="" className="home2" />
             </div>
             <div className="container3">
                 <img src={home3} alt="" className="home3" />
-            </div>
-            <div className="container4">
-                <img src={home4} alt="" className="home4" />
-            </div>
-            <div className="container5">
-                <img src={home5} alt="" className="home5" />
             </div>
         </div>
     )
