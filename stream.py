@@ -1,6 +1,8 @@
 from flask import Flask, Response
 from subprocess import Popen, PIPE
 from apscheduler.schedulers.background import BackgroundScheduler
+from flask import jsonify
+import socket
 
 app = Flask(__name__)
 
@@ -11,8 +13,11 @@ strike_price = set()
 
 def generate_market_data():
     # Execute the Java command using subprocess and capture the output
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(('localhost', 0))
+        _, port = s.getsockname()
     java_cmd = 'java'
-    args = ['-Ddebug=true', '-Dspeed=2.0', '-classpath', './feed-play-1.0.jar', 'hackathon.player.Main', 'dataset.csv', '9019']
+    args = ['-Ddebug=true', '-Dspeed=2.0', '-classpath', './feed-play-1.0.jar', 'hackathon.player.Main', 'dataset.csv', str(port)]
     command = [java_cmd] + args
     process = Popen(command, stdout=PIPE, universal_newlines=True)
 
@@ -47,16 +52,17 @@ def generate_market_data():
 
                         # print(batch[0])
 
-                        if(len(batch[2])==5):
+                        if(len(batch[2])==1):
 
                             batch[0] = sorted(list(expiry_date))
                             batch[1] = sorted(list(strike_price))
-                            yield str(batch) + '\n'
+                            yield str(batch)
+                            exit()
                             batch = [[],[],[]]
 
 @app.route('/market-data/stream')
 def stream_market_data():
-    return Response(generate_market_data(), mimetype='text/plain')
+    return Response(generate_market_data(), mimetype='text/event-stream')
 
 if __name__ == '__main__':
     app.run(debug=True)

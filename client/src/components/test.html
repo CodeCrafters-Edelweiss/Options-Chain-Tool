@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="text/javascript">
+          // Establish a socket connection with the server
+      const socket = new WebSocket('http://localhost:5000/market-data/');
+
+      // Handle socket open event
+      socket.addEventListener('open', () => {
+        console.log('Connected to server');
+      });
+
+      // Handle socket message event
+      socket.addEventListener('message', (event) => {
+        const data = JSON.parse(event.data);
+        console.log(data);
+      });
+
+      // Handle socket close event
+      socket.addEventListener('close', () => {
+        console.log('Disconnected from server');
+      });
+
+      // Handle socket error event
+      socket.addEventListener('error', (error) => {
+        console.error('Socket error:', error);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+[
+  {
+    "symbol": "MAINIDX",
+    "LTP": "1595",
+    "LTQ": "0",
+    "totalTradedVolume": "0",
+    "bestBid": "0",
+    "bestAsk": "0",
+    "bestBidQty": "0",
+    "bestAskQty": "0",
+    "openInterest": "0",
+    "timestamp": "Mon Jul 03 21:01:14 IST 2023",
+    "sequence": "8",
+    "prevClosePrice": "0",
+    "prevOpenInterest": "0",
+    "change": "PE",
+    "expiry_date": "31AUG23",
+    "strike_price": "16650",
+    "IV": 1.99
+  }
+]
