@@ -43,7 +43,9 @@ interface MarketData {
   expp: string;
 }
 
-const socket = io('http://localhost:5000'); 
+const socket = io('http://localhost:5000');
+
+const worker = new Worker(new URL('./worker.js', import.meta.url));
 
 const TableComp = () => {// State to store market data
   const [selectedSymbol, setSelectedSymbol] = useState<string>(""); // State to store selected symbol
@@ -57,13 +59,27 @@ const TableComp = () => {// State to store market data
   const navigate = useNavigate(); 
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleWorkerMessage = useCallback((event: MessageEvent<any>) => {
+    const data = event.data;
+    console.log("Data received from web worker:", data);
+    setResponseData(data);
+  }, []);
+
+  useEffect(() => {
+    worker.addEventListener('message', handleWorkerMessage);
+    return () => {
+      worker.removeEventListener('message', handleWorkerMessage);
+    };
+  }, [handleWorkerMessage]);
+
+
   useEffect(() => {
     socket.on('from-server', (msg) => {
       console.log(msg);
     });
   
     socket.on('market_data', (msg)=>{
-      setResponseData(JSON.parse(msg));
+      worker.postMessage(JSON.parse(msg));
       // setData(JSON.parse(msg));
     })
     socket.emit('update_market_data')
@@ -189,33 +205,3 @@ const TableComp = () => {// State to store market data
 };
 
 export default TableComp;
-
-/* import React, { useState } from 'react';
-import { io } from 'socket.io-client';
-
-const socket = io('http://localhost:50000'); // Use http:// instead of ws://
-
-const TestComponent = () => {
-  const [serverMessage, setServerMessage] = useState(null);
-
-  socket.on('from-server', (msg) => {
-    console.log(msg);
-    // setServerMessage(msg);
-  });
-
-  console.log('before')
-  socket.emit('to-server', 'hello')
-
-  console.log('sent')
-  return (
-    <div>
-      <h2>Market Data Updates</h2>
-      <ul>
-        <li>{serverMessage}</li>
-      </ul>
-    </div>
-  );
-}
-
-export default TestComponent;
- */
