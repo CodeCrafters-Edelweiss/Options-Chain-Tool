@@ -303,28 +303,21 @@ const TableComp = () => {// State to store market data
         return returnValue;
   });
 
-  const notInArray = (array: string[], value: string) => {    
-    for(let i = 0; i < array.length; i++) {
-        if(value === array[i]){
-          return false;
-        }
-    }
-    return true;
-  }
-
   const settingValues = () => {
-    filteredData.map((data)=>{
-      if (notInArray(symbols,data.symbol)) {setSymbols((prev: string[]) => {
-        return [...prev,data.symbol]
-      });}
-      if (notInArray(strikePrices,data.strike_price)) {setStrikePrices((prev: string[]) => {
-        return [...prev, data.strike_price]
-      });}
-      if (notInArray(expiryDates,data.expiry_date)) {setExpiryDates((prev: string[]) => {
-        return [...prev, data.expiry_date]
-      });}
+    const symbolSet = new Set(symbols);
+    const strikePriceSet = new Set(strikePrices);
+    const expiryDateSet = new Set(expiryDates);
+
+    filteredData.forEach((data) => {
+      symbolSet.add(data.symbol);
+      strikePriceSet.add(data.strike_price);
+      expiryDateSet.add(data.expiry_date);
     });
-  }
+
+    setSymbols(Array.from(symbolSet));
+    setStrikePrices(Array.from(strikePriceSet));
+    setExpiryDates(Array.from(expiryDateSet));
+  };
 
   useEffect(() => {
   filteredData && settingValues();
@@ -332,7 +325,7 @@ const TableComp = () => {// State to store market data
 
 
 
-  console.log(`symbols: ${symbols} | strikeprices: ${strikePrices} | expiryDates: ${expiryDates}`);
+  // console.log(`symbols: ${symbols} | strikeprices: ${strikePrices} | expiryDates: ${expiryDates}`);
   // const symbols = [...new Set(filteredData.map((data) => data.symbol))];
   // const strikePrices = [...new Set(filteredData.map((data) => data.strike_price))];
   // const expiryDates = [...new Set(filteredData.map((data) => data.expiry_date))];
