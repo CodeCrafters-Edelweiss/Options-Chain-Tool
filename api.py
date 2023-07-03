@@ -1,5 +1,6 @@
 import json
 import time
+from datetime import datetime, timedelta
 from flask import Flask, jsonify
 from subprocess import Popen, PIPE
 from flask_socketio import SocketIO, emit
@@ -39,10 +40,9 @@ def update_market_data():
     process = Popen(command, stdout=PIPE, universal_newlines=True)
 
     # Send the data to the client in batches
-    # The first list contains expiry dates
-    # The second list contains strike prices
-    # The third list contains data
     batch_data = []
+    last_timestamp = None
+    last_emit_time = None
     print('also inside')
     for line in process.stdout:
         if line.startswith("Publishing MarketData"):
@@ -67,30 +67,31 @@ def update_market_data():
                         data['symbol'] = symbol_
                         data['IV'] = 1.99
 
-                        # batch_data[0].append(data['expiry_date'])
-                        # batch_data[1].append(data['strike_price'])
-                        # batch_data[2].append(data)
+                        # Check the timestamp and emit the batch if it has changed or 20 seconds have passed
+                        timestamp_str = data.get('timestamp')
+                        timestamp_str = timestamp_str.replace(" IST", "")
+                        timestamp = datetime.strptime(timestamp_str, '%a %b %d %H:%M:%S %Y')
+
+                        if last_emit_time is None:
+                            last_emit_time = timestamp
+                        elif (timestamp - last_emit_time) >= timedelta(seconds=20):
+                            if batch_data:
+                                json_data = json.dumps(batch_data)
+                                emit('market_data', json_data)
+                                socketio.sleep(0)
+                                print('emitted')
+                                batch_data = []
+                                last_emit_time = timestamp
+
                         batch_data.append(data)
-            # for batch in batch_data:
-            # Emit the batch data to the client
-            # emit('market_data', str(batch_data))
-            # socketio.sleep(0)
-            # print(str(batch_data))
-            # batch_data = [[], [], []]
-            # print(len(batch_data) , " " , emit_batch_size)
-            if len(batch_data) >= emit_batch_size:
-                # Emit the batch data to the client
-                json_data = json.dumps(batch_data)
-                emit('market_data', (json_data))
-                socketio.sleep(0)
-                print('emitted')
-                batch_data = []
+                        last_timestamp = timestamp
 
         data_count += 1
 
     # Emit any remaining data in the last batch
     if batch_data:
-        emit('market_data', jsonify(batch_data))
+        json_data = json.dumps(batch_data)
+        emit('market_data', json_data)
 
     # Emit a message to indicate data update completion
     emit('market_data_complete', 'Data update complete')
