@@ -369,27 +369,27 @@ const TableComp = () => {// State to store market data
                   <Tr key={data.symbol}>
                     <Td><Button onClick={handleOpenModal}>Open Chart</Button>
 
-      <Modal isOpen={isOpen} onClose={handleCloseModal} size="xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>
-            <Heading as="h1" size="lg" color="black">
-              Chart
-            </Heading>
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Box width="100%" height="400px">
-              <HighchartsReact highcharts={Highcharts} options={options} />
-            </Box>
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleCloseModal}>
-              Close
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal></Td>
+                    <Modal isOpen={isOpen} onClose={handleCloseModal} size="xl">
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader>
+                          <Heading as="h1" size="lg" color="black">
+                            Chart
+                          </Heading>
+                        </ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                          <Box width="100%" height="400px">
+                            <HighchartsReact highcharts={Highcharts} options={options} />
+                          </Box>
+                        </ModalBody>
+                        <ModalFooter>
+                          <Button colorScheme="blue" mr={3} onClick={handleCloseModal}>
+                            Close
+                          </Button>
+                        </ModalFooter>
+                      </ModalContent>
+                    </Modal></Td>
                     <Td>{data.symbol}</Td>
                     <Td>{data.LTQ}</Td>
                     <Td>{data.openInterest}</Td>

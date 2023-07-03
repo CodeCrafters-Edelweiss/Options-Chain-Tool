@@ -15,6 +15,9 @@ const TableHead = () => {
         <Thead>
             <Tr style={{ backgroundColor: "#062d17" }}>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                    
+                </Th>
+                <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     SYMBOL
                 </Th>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
