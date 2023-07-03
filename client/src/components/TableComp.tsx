@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import {
   Table,
   Thead,
@@ -20,6 +19,7 @@ import { io } from 'socket.io-client';
 import { useNavigate } from "react-router-dom";
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import {ViewportList} from 'react-viewport-list';
 
 interface MarketData {
   symbol: string;
@@ -56,7 +56,8 @@ const TableComp = () => {// State to store market data
   const [expiryDates,setExpiryDates] = useState<string[]>([]);
   const [responseData, setResponseData] = useState<MarketData[]>([]);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleWorkerMessage = useCallback((event: MessageEvent<any>) => {
@@ -167,36 +168,38 @@ const TableComp = () => {// State to store market data
         <TableContainer>
           <Table size="sm" variant="simple" colorScheme="green">
             <TableHead/>
-            <Tbody>
-              {filteredData.map((data,index) => (
-                  <Tr key={index}>
-                    <Td>{data.symbol}</Td>
-                    <Td>{data.LTQ}</Td>
-                    <Td>{data.openInterest}</Td>
-                    <Td>{data.change}</Td>
-                    <Td>{data.totalTradedVolume}</Td>
-                    <Td>{data.IV}</Td>
-                    <Td>{data.LTP}</Td>
-                    <Td>{data.change}</Td>
-                    <Td>{data.bestBidQty}</Td>
-                    <Td>{data.change == "CE" ? data.expc : '-'}</Td>
-                    <Td>{data.change == "PE" ? data.expp : '-'}</Td>
-                    <Td>{data.bestAsk}</Td>
-                    <Td>{data.bestAskQty}</Td>
-                    <Td>{data.strike_price}</Td>
-                    <Td>{data.bestBidQty}</Td>
-                    <Td>{data.bestBid}</Td>
-                    <Td>{data.bestAsk}</Td>
-                    <Td>{data.bestAskQty}</Td>
-                    <Td>{data.change}</Td>
-                    <Td>{data.LTP}</Td>
-                    <Td>{data.IV}</Td>
-                    <Td>{data.totalTradedVolume}</Td>
-                    <Td>{data.change}</Td>
-                    <Td>{data.openInterest}</Td>
-                    <Td>{data.LTQ}</Td>
-                  </Tr>
-              ))}
+            <Tbody ref={ref}>
+              <ViewportList viewportRef={ref} items={responseData} >
+                {(item: any) => (
+                        <Tr>
+                      <Td>{item.symbol}</Td>
+                      <Td>{item.LTQ}</Td>
+                      <Td>{item.openInterest}</Td>
+                      <Td>{item.change}</Td>
+                      <Td>{item.totalTradedVolume}</Td>
+                      <Td>{item.IV}</Td>
+                      <Td>{item.LTP}</Td>
+                      <Td>{item.change}</Td>
+                      <Td>{item.bestBidQty}</Td>
+                      <Td>{item.change == "CE" ? item.expc : '-'}</Td>
+                      <Td>{item.change == "PE" ? item.expp : '-'}</Td>
+                      <Td>{item.bestAsk}</Td>
+                      <Td>{item.bestAskQty}</Td>
+                      <Td>{item.strike_price}</Td>
+                      <Td>{item.bestBidQty}</Td>
+                      <Td>{item.bestBid}</Td>
+                      <Td>{item.bestAsk}</Td>
+                      <Td>{item.bestAskQty}</Td>
+                      <Td>{item.change}</Td>
+                      <Td>{item.LTP}</Td>
+                      <Td>{item.IV}</Td>
+                      <Td>{item.totalTradedVolume}</Td>
+                      <Td>{item.change}</Td>
+                      <Td>{item.openInterest}</Td>
+                      <Td>{item.LTQ}</Td>
+                    </Tr>
+                )}
+              </ViewportList>
             </Tbody>
           </Table>
         </TableContainer>
