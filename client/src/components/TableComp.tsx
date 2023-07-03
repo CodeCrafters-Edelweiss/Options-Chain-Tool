@@ -39,6 +39,8 @@ interface MarketData {
   strike_price: string;
   change: string;
   IV: number;
+  expc: string;
+  expp: string;
 }
 
 const socket = io('http://localhost:5000'); 
@@ -62,9 +64,8 @@ const TableComp = () => {// State to store market data
   
     socket.on('market_data', (msg)=>{
       // console.log(msg);
-      const response = JSON.parse(msg)[2];
+      const response = JSON.parse(msg);
       console.log(response)
-      response.
       setResponseData(response);
     })
     socket.emit('update_market_data')
@@ -302,27 +303,26 @@ const TableComp = () => {// State to store market data
         return returnValue;
   });
 
-  const notInArray = (array: string[], value: string) => {
-    let notInArray = true;
+  const notInArray = (array: string[], value: string) => {    
     for(let i = 0; i < array.length; i++) {
         if(value === array[i]){
-          notInArray = false;
+          return false;
         }
     }
-    return notInArray;
+    return true;
   }
 
   const settingValues = () => {
     filteredData.map((data)=>{
-      notInArray(symbols,data.symbol) && setSymbols((prev: string[]) => {
+      if (notInArray(symbols,data.symbol)) {setSymbols((prev: string[]) => {
         return [...prev,data.symbol]
-      });
-      notInArray(strikePrices,data.strike_price) && setStrikePrices((prev: string[]) => {
+      });}
+      if (notInArray(strikePrices,data.strike_price)) {setStrikePrices((prev: string[]) => {
         return [...prev, data.strike_price]
-      });
-      notInArray(expiryDates,data.expiry_date) && setExpiryDates((prev: string[]) => {
+      });}
+      if (notInArray(expiryDates,data.expiry_date)) {setExpiryDates((prev: string[]) => {
         return [...prev, data.expiry_date]
-      });
+      });}
     });
   }
 
@@ -426,6 +426,8 @@ const TableComp = () => {// State to store market data
                     <Td>{data.LTP}</Td>
                     <Td>{data.change}</Td>
                     <Td>{data.bestBidQty}</Td>
+                    <Td>{data.change == "CE" ? data.expc : '-'}</Td>
+                    <Td>{data.change == "PE" ? data.expp : '-'}</Td>
                     <Td>{data.bestAsk}</Td>
                     <Td>{data.bestAskQty}</Td>
                     <Td>{data.strike_price}</Td>

@@ -45,6 +45,12 @@ const TableHead = () => {
                     BID QTY
                 </Th>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                    EXPC
+                </Th>
+                <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                    EXPP
+                </Th>
+                <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     ASK
                 </Th>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>

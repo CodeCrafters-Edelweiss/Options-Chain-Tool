@@ -42,7 +42,7 @@ def update_market_data():
     # The first list contains expiry dates
     # The second list contains strike prices
     # The third list contains data
-    batch_data = [[], [], []]
+    batch_data = []
     print('also inside')
     for line in process.stdout:
         if line.startswith("Publishing MarketData"):
@@ -67,9 +67,10 @@ def update_market_data():
                         data['symbol'] = symbol_
                         data['IV'] = 1.99
 
-                        batch_data[0].append(data['expiry_date'])
-                        batch_data[1].append(data['strike_price'])
-                        batch_data[2].append(data)
+                        # batch_data[0].append(data['expiry_date'])
+                        # batch_data[1].append(data['strike_price'])
+                        # batch_data[2].append(data)
+                        batch_data.append(data)
             # for batch in batch_data:
             # Emit the batch data to the client
             # emit('market_data', str(batch_data))
@@ -83,7 +84,7 @@ def update_market_data():
                 emit('market_data', (json_data))
                 socketio.sleep(0)
                 print('emitted')
-                batch_data = [[], [], []]
+                batch_data = []
 
         data_count += 1
 
@@ -104,5 +105,5 @@ def get_market_data():
 
 if __name__ == '__main__':
     data_count = 0
-    emit_batch_size = 3
+    emit_batch_size = 10
     socketio.run(app, port=5000)
