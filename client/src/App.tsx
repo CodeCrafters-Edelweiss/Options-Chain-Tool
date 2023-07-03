@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Options from "./pages/Options";
 import Login from "./pages/Login";
 import OptionChainComponent from './filter/Symbolfilter';
-import ChartComponent from './components/ChartComponent';
+
 
 function App() {
   return (
@@ -14,7 +14,6 @@ function App() {
       <Route path="/login" element={<Login/>} />
       <Route path="/options" element={<Options/>} />
       <Route path ="/filter" element={<OptionChainComponent/>} />
-      <Route path ="/chart" element={<ChartComponent/>} />
      </Routes>
    </Router>
   );
