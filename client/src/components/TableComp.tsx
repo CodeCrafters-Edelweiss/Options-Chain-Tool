@@ -10,9 +10,11 @@ import {
   Select,
     SimpleGrid,
     Box,
+    Button,
 } from "@chakra-ui/react";
 import "../styles/options.css";
 import TableHead from "./TableHead";
+import { useNavigate } from "react-router-dom";
 
 
 const TableComp = () => {// State to store market data
@@ -22,6 +24,7 @@ const TableComp = () => {// State to store market data
   const [symbols,setSymbols] = useState<string[]>([]);
   const [strikePrices,setStrikePrices] = useState<string[]>([]);
   const [expiryDates,setExpiryDates] = useState<string[]>([]);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     // Sample JSON response data
@@ -219,6 +222,7 @@ const TableComp = () => {// State to store market data
             <Tbody>
               {filteredData.map((data) => (
                   <Tr key={data.symbol}>
+                    <Td><Button onClick={() => navigate("/chart")}>View Chart</Button></Td>
                     <Td>{data.symbol}</Td>
                     <Td>{data.LTQ}</Td>
                     <Td>{data.openInterest}</Td>
