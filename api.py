@@ -20,11 +20,6 @@ def handle_connect():
 def handle_disconnect():
     print('Client disconnected')
 
-@socketio.on('to-server')
-def handle_to_server(arg):
-    print(f'new to-server event: {arg}')
-    socketio.emit('from-server', str(time.time()))  # Use time.time() instead of time
-
 @socketio.on('update_market_data')
 def update_market_data():
     print('inside')
