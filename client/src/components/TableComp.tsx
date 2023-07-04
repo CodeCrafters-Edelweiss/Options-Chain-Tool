@@ -39,7 +39,7 @@ interface MarketData {
   prevOpenInterest: string;
   expiry_date: string;
   strike_price: string;
-  chng: string;
+  chng: number;
   IV: number;
   expc: string;
   expp: string;
@@ -357,11 +357,11 @@ const TableComp = () => {
                 {item.Optioncall === "CE" && (
   <>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.openInterest}</Td>
-                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.Change_in_OI}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black", width: "5%"}}>{item.Change_in_OI}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.totalTradedVolume}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.IV}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.LTP}</Td>
-                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.chng}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color: item.chng < 0 ? "red" : "green"}}>{item.chng}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.bestBidQty}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.bestBid}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.bestAsk}</Td>
@@ -401,7 +401,7 @@ const TableComp = () => {
                 <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.bestAsk}</Td>
                 <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.bestAskQty}</Td>
                 {/* <Td style={{backgroundColor: "white"  , color: "black", textDecoration: "underline", fontWeight: "bold"}}>{item.strike_price}</Td> */}
-                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.chng}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color: item.chng < 0 ? "red" : "green"}}>{item.chng}</Td>
                 <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.LTP}</Td>
                 <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.IV}</Td>
                 <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.totalTradedVolume}</Td>
