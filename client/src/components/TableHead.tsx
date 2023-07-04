@@ -14,7 +14,7 @@ const TableHead = () => {
     return (
         <Thead>
             <Tr style={{ backgroundColor: "#062d17" }}>
-                <Th colSpan={13} className="table-head" style={{ color: "white", fontSize: "0.85rem" , textAlign: "center" }}>
+                <Th colSpan={11} className="table-head" style={{ color: "white", fontSize: "0.85rem" , textAlign: "center" }}>
                     Calls
                 </Th>
                 <Th colSpan={14} className="table-head" style={{ color: "white", fontSize: "0.85rem" , textAlign: "center" }}>
@@ -25,9 +25,9 @@ const TableHead = () => {
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     SYMBOL
                 </Th>
-                <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
-                    CALLS
-                </Th>
+                {/* <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                    LTQ
+                </Th> */}
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     OI
                 </Th>
@@ -49,12 +49,12 @@ const TableHead = () => {
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     BID QTY
                 </Th>
-                <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                {/* <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     EXPC
                 </Th>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     EXPP
-                </Th>
+                </Th> */}
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     ASK
                 </Th>
@@ -94,9 +94,9 @@ const TableHead = () => {
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     OI
                 </Th>
-                <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
-                    CALLS
-                </Th>
+                {/* <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                    LTQ
+                </Th> */}
             </Tr>
         </Thead>
     )
