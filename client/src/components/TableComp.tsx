@@ -39,11 +39,12 @@ interface MarketData {
   prevOpenInterest: string;
   expiry_date: string;
   strike_price: string;
-  change: string;
+  chng: string;
   IV: number;
   expc: string;
   expp: string;
   Change_in_OI: number;
+  Optioncall:string;
 }
 
 const socket = io('http://localhost:5000');
@@ -353,14 +354,14 @@ const TableComp = () => {
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.bestBidQty}</Td> */}
                 {/* <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.change === "CE" ? item.expiry_date : '-'}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.change === "PE" ? item.expiry_date : '-'}</Td> */}
-                {item.change === "CE" && (
+                {item.Optioncall === "CE" && (
   <>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.openInterest}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.Change_in_OI}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.totalTradedVolume}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.IV}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.LTP}</Td>
-                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.change}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.chng}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.bestBidQty}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.bestBid}</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.bestAsk}</Td>
@@ -380,7 +381,7 @@ const TableComp = () => {
                 <Td style={{backgroundColor: "#cdefee" , color :"black"}}>-</Td>
   </>
 )}
-{item.change === "PE" && (
+{item.Optioncall === "PE" && (
   <>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>-</Td>
                 <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>-</Td>
@@ -400,7 +401,7 @@ const TableComp = () => {
                 <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.bestAsk}</Td>
                 <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.bestAskQty}</Td>
                 {/* <Td style={{backgroundColor: "white"  , color: "black", textDecoration: "underline", fontWeight: "bold"}}>{item.strike_price}</Td> */}
-                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.change}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.chng}</Td>
                 <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.LTP}</Td>
                 <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.IV}</Td>
                 <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.totalTradedVolume}</Td>

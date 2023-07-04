@@ -61,12 +61,13 @@ def update_market_data():
                 if symbol_ in data["symbol"]:
                     len_symbol = len(symbol_)
                     if len(data["symbol"]) > 10:
-                        data['change'] = data["symbol"][-2:]
+                        data['Optioncall'] = data["symbol"][-2:]
                         data['expiry_date'] = data['symbol'][len_symbol:len_symbol+7]
                         data['strike_price'] = data['symbol'][len_symbol+7:-2]
                         data['symbol'] = symbol_
                         data['expiry_date']+= ' 15:30:00'
                         data['Change_in_OI'] = int(data['openInterest']) - int(data['prevOpenInterest'])
+                        data['chng'] = round((int(data['LTP'])-int(data['prevClosePrice'])),2)
 
                         try:
                             implied_volitility = get_iv(option_type=data['change'], strike_price=float(int(data['strike_price'])/100), expiration_date=data['expiry_date'], risk_free_rate=0.05, underlying_price=float(symbol_underlying_price[data['symbol']]/100), option_price=float(int(data['LTP'])/100))
