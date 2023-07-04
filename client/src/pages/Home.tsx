@@ -11,7 +11,7 @@ const Home  = () => {
             <Navbar/>
             <div className="container1">
                 <img src={home1} alt="" className="home1" />
-                <button className='browseOptions'><a href="/login">Browse Options</a></button>
+                <button className='browseOptions'><a href="/options">Browse Options</a></button>
             </div>
             <div className="container2">
                 <img src={home2} alt="" className="home2" />

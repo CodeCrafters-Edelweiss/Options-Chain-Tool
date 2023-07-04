@@ -11,6 +11,7 @@ import {
   SimpleGrid,
   Box,
   Button,
+  Tag
 } from "@chakra-ui/react";
 import { Center, Heading, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
 import "../styles/options.css";
@@ -157,9 +158,19 @@ const TableComp = () => {
 
   return (
     <>
+    <Box mt={5}>
+        <Heading as="h3" size="xl" mb={4}>
+        Option Chain
+        </Heading>
+        {/* Rest of the code... */}
+      </Box>
       <div className="filter-container" style={{ paddingBottom: "20px", zIndex: "10000" }}>
+      
         <SimpleGrid columns={3}>
           <Box maxW='sm'>
+            <label>View Options Contracts for:
+
+            </label>
             <Select
               placeholder="Select Symbol"
               value={selectedSymbol }
@@ -173,8 +184,11 @@ const TableComp = () => {
             </Select>
           </Box>
           <Box maxW='sm'>
+          <label>Strike Price:
+              
+              </label>
             <Select
-              placeholder="Select Strike Price"
+              placeholder="Select"
               value={selectedStrikePrice}
               onChange={handleStrikePriceChange}
             >
@@ -186,8 +200,11 @@ const TableComp = () => {
             </Select>
           </Box>
           <Box maxW='sm'>
+          <label>Strike Price:
+              
+              </label>
             <Select
-              placeholder="Select Expiry Date"
+              placeholder="Select"
               value={selectedExpiryDate}
               onChange={handleExpiryDateChange}
             >
