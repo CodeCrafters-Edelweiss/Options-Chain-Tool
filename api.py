@@ -5,7 +5,7 @@ from flask import Flask, jsonify
 from subprocess import Popen, PIPE
 from flask_socketio import SocketIO, emit
 import socket
-
+from iv import get_iv
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -60,7 +60,15 @@ def update_market_data():
                         data['expiry_date'] = data['symbol'][len_symbol:len_symbol+7]
                         data['strike_price'] = data['symbol'][len_symbol+7:-2]
                         data['symbol'] = symbol_
-                        data['IV'] = 1.99
+                        data['expiry_date']+= ' 15:30:00'
+
+                        try:
+                            implied_volitility = get_iv(option_type=data['change'], strike_price=float(int(data['strike_price'])/100), expiration_date=data['expiry_date'], risk_free_rate=0.05, underlying_price=float(symbol_underlying_price[data['symbol']]/100), option_price=float(int(data['LTP'])/100))
+                            data['IV'] = implied_volitility
+                            # print(implied_volitility)
+                        except:
+                            implied_volitility ='-'
+                            data['IV'] = implied_volitility
 
                         # Check the timestamp and emit the batch if it has changed or 20 seconds have passed
                         timestamp_str = data.get('timestamp')
