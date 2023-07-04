@@ -11,6 +11,9 @@ import {
   SimpleGrid,
   Box,
   Button,
+  Flex,
+  Text,
+  Input,
   Tag
 } from "@chakra-ui/react";
 import { Center, Heading, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
@@ -126,6 +129,18 @@ const TableComp = () => {
     setCurrentPage(pageNumber);
   };
 
+  const [searchPage, setSearchPage] = useState(""); // State for the search input
+
+  const handleSearchPage = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setSearchPage(event.target.value);
+  };
+
+  const handleGoToPage = () => {
+    const pageNumber = parseInt(searchPage, 10);
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      handlePageChange(pageNumber);
+    }
+  };
   // Filter the market data based on selected symbol, strike price, and expiry date
   const filteredData = useMemo(() => {
     const filtered = responseData.filter((data) => {
@@ -156,10 +171,113 @@ const TableComp = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentData = filteredData.slice(startIndex, endIndex);
 
+  const getPaginationButtons = () => {
+    const buttons = [];
+
+    if (totalPages <= 7) {
+      // If total pages are less than or equal to 7, display all buttons
+      for (let i = 1; i <= totalPages; i++) {
+        buttons.push(
+          <Button
+            key={i}
+            disabled={currentPage === i}
+            onClick={() => handlePageChange(i)}
+          >
+            {i}
+          </Button>
+        );
+      }
+    } else {
+      // If total pages are more than 7, display the first three, last three, and three dots
+      if (currentPage <= 4) {
+        // Display buttons 1, 2, 3, ..., currentPage, currentPage + 1
+        for (let i = 1; i <= currentPage + 1; i++) {
+          buttons.push(
+            <Button
+              key={i}
+              disabled={currentPage === i}
+              onClick={() => handlePageChange(i)}
+            >
+              {i}
+            </Button>
+          );
+        }
+        buttons.push(<Button key="dots" disabled>...</Button>);
+        buttons.push(
+          <Button
+            key={totalPages}
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(totalPages)}
+          >
+            {totalPages}
+          </Button>
+        );
+      } else if (currentPage >= totalPages - 3) {
+        // Display buttons totalPages - 2, totalPages - 1, ..., currentPage - 1, currentPage
+        buttons.push(
+          <Button
+            key={1}
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(1)}
+          >
+            1
+          </Button>
+        );
+        buttons.push(<Button key="dots" disabled>...</Button>);
+        for (let i = currentPage - 1; i <= totalPages; i++) {
+          buttons.push(
+            <Button
+              key={i}
+              disabled={currentPage === i}
+              onClick={() => handlePageChange(i)}
+            >
+              {i}
+            </Button>
+          );
+        }
+      } else {
+        // Display buttons 1, 2, ..., currentPage - 1, currentPage, currentPage + 1, ..., totalPages
+        buttons.push(
+          <Button
+            key={1}
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(1)}
+          >
+            1
+          </Button>
+        );
+        buttons.push(<Button key="dots1" disabled>...</Button>);
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+          buttons.push(
+            <Button
+              key={i}
+              disabled={currentPage === i}
+              onClick={() => handlePageChange(i)}
+            >
+              {i}
+            </Button>
+          );
+        }
+        buttons.push(<Button key="dots2" disabled>...</Button>);
+        buttons.push(
+          <Button
+            key={totalPages}
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(totalPages)}
+          >
+            {totalPages}
+          </Button>
+        );
+      }
+    }
+
+    return buttons;
+  };
+
   return (
     <>
     <Box mt={5}>
-        <Heading as="h3" size="xl" mb={4}>
+        <Heading as="h4" size="xl" mb={4} fontFamily="Helvetica">
         Option Chain
         </Heading>
         {/* Rest of the code... */}
@@ -200,7 +318,7 @@ const TableComp = () => {
             </Select>
           </Box>
           <Box maxW='sm'>
-          <label>Strike Price:
+          <label>Expiry Date:
               
               </label>
             <Select
@@ -253,28 +371,36 @@ const TableComp = () => {
           </Tbody>
         </Table>
       </TableContainer>
-      <Box className="pagination-container" style={{}}>
-        <Button
-          disabled={currentPage === 1}
-          onClick={() => handlePageChange(currentPage - 1)}
-        >
-          Previous
-        </Button>
-        {Array.from({ length: totalPages }, (_, index) => (
+      <Box className="pagination-container" style={{ marginTop: "20px", marginBottom: "20px" }}>
+        {/* <ButtonGroup isAttached> */}
           <Button
-            key={index}
-            disabled={currentPage === index + 1}
-            onClick={() => handlePageChange(index + 1)}
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
           >
-            {index + 1}
+            Previous
           </Button>
-        ))}
-        <Button
-          disabled={currentPage === totalPages}
-          onClick={() => handlePageChange(currentPage + 1)}
-        >
-          Next
-        </Button>
+          {getPaginationButtons()}
+          <Button
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+          >
+            Next
+          </Button>
+        {/* </ButtonGroup> */}
+        <Flex alignItems="center" marginTop="10px">
+          <Text>Go to page:</Text>
+          <Input
+            type="number"
+            value={searchPage}
+            onChange={handleSearchPage}
+            size="sm"
+            width="70px"
+            marginLeft="10px"
+          />
+          <Button onClick={handleGoToPage} size="sm" marginLeft="10px">
+            Go
+          </Button>
+        </Flex>
       </Box>
     </>
   );
