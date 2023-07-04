@@ -1,0 +1,5 @@
+Flask==2.2.3
+Flask_SocketIO==5.3.3
+scipy==1.8.0
+subprocess
+json==2.0.9
