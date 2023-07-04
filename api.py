@@ -34,6 +34,8 @@ def update_market_data():
     command = [java_cmd] + args
     process = Popen(command, stdout=PIPE, universal_newlines=True)
 
+    symbol_underlying_price = {'MAINIDX': 1848775, 'MIDCAPS': 759205, 'FINANCIALS': 1932270, 'ALLBANKS': 4379020}
+
     # Send the data to the client in batches
     batch_data = []
     last_timestamp = None
