@@ -74,8 +74,9 @@ def update_market_data():
 
                         if last_emit_time is None:
                             last_emit_time = timestamp
-                        elif (timestamp - last_emit_time) >= timedelta(seconds=20):
+                        elif (timestamp - last_emit_time) >= timedelta(seconds=1):
                             if batch_data:
+                                print(len(batch_data))
                                 json_data = json.dumps(batch_data)
                                 emit('market_data', json_data)
                                 socketio.sleep(0)
