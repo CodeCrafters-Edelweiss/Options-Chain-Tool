@@ -70,7 +70,7 @@ def update_market_data():
                         data['chng'] = round((int(data['LTP'])-int(data['prevClosePrice'])),2)
 
                         try:
-                            implied_volitility = get_iv(option_type=data['change'], strike_price=float(int(data['strike_price'])/100), expiration_date=data['expiry_date'], risk_free_rate=0.05, underlying_price=float(symbol_underlying_price[data['symbol']]/100), option_price=float(int(data['LTP'])/100))
+                            implied_volitility = get_iv(option_type=data['Optioncall'], strike_price=float(int(data['strike_price'])/100), expiration_date=data['expiry_date'], risk_free_rate=0.05, underlying_price=float(symbol_underlying_price[data['symbol']]/100), option_price=float(int(data['LTP'])/100))
                             data['IV'] = implied_volitility
                             # print(implied_volitility)
                         except:

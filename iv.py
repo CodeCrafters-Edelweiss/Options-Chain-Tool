@@ -34,6 +34,6 @@ def get_iv(option_type, strike_price, expiration_date, risk_free_rate, underlyin
         except RuntimeError:
             pass
     if len(results)==0:
-        return None
+        return '-'
     
     return results[0]
