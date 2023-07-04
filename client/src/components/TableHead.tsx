@@ -49,17 +49,17 @@ const TableHead = () => {
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     BID QTY
                 </Th>
-                {/* <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
-                    EXPC
-                </Th>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
-                    EXPP
-                </Th> */}
+                    BID
+                </Th>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     ASK
                 </Th>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     ASK QTY
+                </Th>
+                <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                    EXPC
                 </Th>
                 <Th className="table-head" style={{ color: "black", fontSize: "0.85rem", backgroundColor: "#FFD700" }}>
                     STRIKE
@@ -93,6 +93,9 @@ const TableHead = () => {
                 </Th>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     OI
+                </Th>
+                <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                    EXPP
                 </Th>
                 {/* <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     LTQ

@@ -54,6 +54,9 @@ def update_market_data():
 
             data["symbol"] = data["symbol"][1:-1]
 
+            if any(symbol == data['symbol'] for symbol in symbols):
+                pass
+
             for symbol_ in symbols:
                 if symbol_ in data["symbol"]:
                     len_symbol = len(symbol_)
@@ -63,6 +66,7 @@ def update_market_data():
                         data['strike_price'] = data['symbol'][len_symbol+7:-2]
                         data['symbol'] = symbol_
                         data['expiry_date']+= ' 15:30:00'
+                        data['Change_in_OI'] = int(data['openInterest']) - int(data['prevOpenInterest'])
 
                         try:
                             implied_volitility = get_iv(option_type=data['change'], strike_price=float(int(data['strike_price'])/100), expiration_date=data['expiry_date'], risk_free_rate=0.05, underlying_price=float(symbol_underlying_price[data['symbol']]/100), option_price=float(int(data['LTP'])/100))
