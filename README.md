@@ -3,12 +3,24 @@
 
 This project processes the market data and calculates Implied volatility (IV), etc. and display as an options chain screen on a website.
 
+
+
+
+
+
+## Video Presentation
+
+```
+https://drive.google.com/file/u/1/d/1Q2UKd5lOcR3zN9SUEEXM65_sPGgCw_Gy/view?usp=sharing
+```
+## PPT
+
+```
+https://docs.google.com/presentation/u/1/d/19rjTuBFKIDI5vHKFzugufKr8EoMCFABPb2kEED48uYU/edit?usp=sharing
+```
 ## Steps for installation:
 
-
-
-
-## Run Locally
+### Run Locally
 
 Clone the project
 
