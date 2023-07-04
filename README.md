@@ -18,6 +18,7 @@ https://drive.google.com/file/u/1/d/1Q2UKd5lOcR3zN9SUEEXM65_sPGgCw_Gy/view?usp=s
 ```
 https://docs.google.com/presentation/u/1/d/19rjTuBFKIDI5vHKFzugufKr8EoMCFABPb2kEED48uYU/edit?usp=sharing
 ```
+The Video presentation and PPT are also present in the resources folder.
 ## Steps for installation:
 
 ### Run Locally
