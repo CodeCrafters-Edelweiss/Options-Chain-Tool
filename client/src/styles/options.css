@@ -8,7 +8,11 @@ table {
 
 .options-container{
     position: relative;
-    top: 20vh;
+    top: 10vh;
     left: 5vw;
     width: 85vw;
+}
+
+.logo-container{
+    padding-left: 5vh;
 }
