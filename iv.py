@@ -3,11 +3,11 @@ from scipy import optimize
 from scipy.stats import norm
 import datetime
 
-
+# Option details
 def get_iv(option_type, strike_price, expiration_date, risk_free_rate, underlying_price, option_price):
     # Function to calculate the Black-Scholes formula
     def black_scholes(IV):
-
+        
         d1 = (math.log(underlying_price / strike_price) + (risk_free_rate + IV**2 / 2) * time_to_expiration) / (IV * math.sqrt(time_to_expiration))
         d2 = d1 - IV * math.sqrt(time_to_expiration)
         if option_type == 'CE':
@@ -35,5 +35,5 @@ def get_iv(option_type, strike_price, expiration_date, risk_free_rate, underlyin
             pass
     if len(results)==0:
         return None
-
+    
     return results[0]
