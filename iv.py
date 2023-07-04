@@ -18,7 +18,7 @@ def get_iv(option_type, strike_price, expiration_date, risk_free_rate, underlyin
     # Calculate time to expiration in years
     expiration_datetime = datetime.datetime.strptime(expiration_date, '%d%b%y %H:%M:%S')
     current_datetime = datetime.datetime.now()
-    time_to_expiration = (expiration_datetime - current_datetime).total_seconds() / (60 * 60 * 24 * 330)
+    time_to_expiration = (expiration_datetime - current_datetime).total_seconds() / (60 * 60 * 24 * 300)
     time_to_expiration = max(time_to_expiration, 0)  # Ensure non-negative time to expiration
     if time_to_expiration<=0:
         return '-'
