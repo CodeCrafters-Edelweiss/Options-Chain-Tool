@@ -15,9 +15,6 @@ const TableHead = () => {
         <Thead>
             <Tr style={{ backgroundColor: "#062d17" }}>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
-                    
-                </Th>
-                <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     SYMBOL
                 </Th>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
@@ -56,7 +53,7 @@ const TableHead = () => {
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     ASK QTY
                 </Th>
-                <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
+                <Th className="table-head" style={{ color: "black", fontSize: "0.85rem", backgroundColor: "#FFD700" }}>
                     STRIKE
                 </Th>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>

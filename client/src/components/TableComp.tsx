@@ -17,8 +17,6 @@ import "../styles/options.css";
 import TableHead from "./TableHead";
 import { io } from 'socket.io-client';
 import { useNavigate } from "react-router-dom";
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
 import { ViewportList } from 'react-viewport-list';
 
 interface MarketData {
@@ -65,6 +63,7 @@ const TableComp = () => {
   const handleWorkerMessage = useCallback((event: MessageEvent<any>) => {
     const data = event.data;
     console.log("Data received from web worker:", data);
+    console.log(data)
     setResponseData(data);
   }, []);
 
@@ -128,7 +127,7 @@ const TableComp = () => {
 
   // Filter the market data based on selected symbol, strike price, and expiry date
   const filteredData = useMemo(() => {
-    return responseData.filter((data) => {
+    const filtered = responseData.filter((data) => {
       let returnValue = true;
       if (selectedSymbol && data.symbol !== selectedSymbol) {
         returnValue = false;
@@ -141,6 +140,14 @@ const TableComp = () => {
       }
       return returnValue;
     });
+
+    const sorted = [...filtered].sort((a, b) => {
+      const strikePriceA = parseFloat(a.strike_price);
+      const strikePriceB = parseFloat(b.strike_price);
+      return strikePriceA - strikePriceB;
+    });
+
+    return sorted;
   }, [responseData, selectedSymbol, selectedStrikePrice, selectedExpiryDate]);
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -155,7 +162,7 @@ const TableComp = () => {
           <Box maxW='sm'>
             <Select
               placeholder="Select Symbol"
-              value={selectedSymbol === "" ? "MAINIDX" : selectedSymbol}
+              value={selectedSymbol }
               onChange={handleSymbolChange}
             >
               {symbols.map((symbol) => (
@@ -212,7 +219,7 @@ const TableComp = () => {
                 <Td>{item.change === "PE" ? item.expiry_date : '-'}</Td>
                 <Td>{item.bestAsk}</Td>
                 <Td>{item.bestAskQty}</Td>
-                <Td>{item.strike_price}</Td>
+                <Td style={{color: "black",backgroundColor : "#FFD700"}}>{item.strike_price}</Td>
                 <Td>{item.bestBidQty}</Td>
                 <Td>{item.bestBid}</Td>
                 <Td>{item.bestAsk}</Td>
