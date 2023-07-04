@@ -21,7 +21,7 @@ def get_iv(option_type, strike_price, expiration_date, risk_free_rate, underlyin
     time_to_expiration = (expiration_datetime - current_datetime).total_seconds() / (60 * 60 * 24 * 330)
     time_to_expiration = max(time_to_expiration, 0)  # Ensure non-negative time to expiration
     if time_to_expiration<=0:
-        return 0
+        return '-'
 
     # Test different intervals for implied volatility using Newton's method
     intervals = [(0.001, 1), (1, 10), (10, 100), (100, 1000), (1000, 10000)]
