@@ -14,6 +14,14 @@ const TableHead = () => {
     return (
         <Thead>
             <Tr style={{ backgroundColor: "#062d17" }}>
+                <Th colSpan={13} className="table-head" style={{ color: "white", fontSize: "0.85rem" , textAlign: "center" }}>
+                    Calls
+                </Th>
+                <Th colSpan={14} className="table-head" style={{ color: "white", fontSize: "0.85rem" , textAlign: "center" }}>
+                    Puts
+                </Th>
+            </Tr>
+            <Tr style={{ backgroundColor: "#062d17" }}>
                 <Th className="table-head" style={{ color: "white", fontSize: "0.85rem" }}>
                     SYMBOL
                 </Th>

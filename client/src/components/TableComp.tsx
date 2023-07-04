@@ -206,31 +206,31 @@ const TableComp = () => {
           <Tbody ref={ref}>
             {currentData.map((item: MarketData, index: number) => (
               <Tr key={index}>
-                <Td>{item.symbol}</Td>
-                <Td>{item.LTQ}</Td>
-                <Td>{item.openInterest}</Td>
-                <Td>{item.change}</Td>
-                <Td>{item.totalTradedVolume}</Td>
-                <Td>{item.IV}</Td>
-                <Td>{item.LTP}</Td>
-                <Td>{item.change}</Td>
-                <Td>{item.bestBidQty}</Td>
-                <Td>{item.change === "CE" ? item.expiry_date : '-'}</Td>
-                <Td>{item.change === "PE" ? item.expiry_date : '-'}</Td>
-                <Td>{item.bestAsk}</Td>
-                <Td>{item.bestAskQty}</Td>
-                <Td style={{color: "black",backgroundColor : "#FFD700"}}>{item.strike_price}</Td>
-                <Td>{item.bestBidQty}</Td>
-                <Td>{item.bestBid}</Td>
-                <Td>{item.bestAsk}</Td>
-                <Td>{item.bestAskQty}</Td>
-                <Td>{item.change}</Td>
-                <Td>{item.LTP}</Td>
-                <Td>{item.IV}</Td>
-                <Td>{item.totalTradedVolume}</Td>
-                <Td>{item.change}</Td>
-                <Td>{item.openInterest}</Td>
-                <Td>{item.LTQ}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.symbol}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.LTQ}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.openInterest}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.change}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.totalTradedVolume}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.IV}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.LTP}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.change}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.bestBidQty}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.change === "CE" ? item.expiry_date : '-'}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.change === "PE" ? item.expiry_date : '-'}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.bestAsk}</Td>
+                <Td style={{backgroundColor: "#eeeee4" , color :"black"}}>{item.bestAskQty}</Td>
+                <Td style={{backgroundColor: "white"  , color: "black", textDecoration: "underline", fontWeight: "bold"}}>{item.strike_price}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.bestBidQty}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.bestBid}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.bestAsk}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.bestAskQty}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.change}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.LTP}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.IV}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.totalTradedVolume}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.change}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.openInterest}</Td>
+                <Td style={{backgroundColor: "#cdefee" , color :"black"}}>{item.LTQ}</Td>
               </Tr>
             ))}
           </Tbody>
