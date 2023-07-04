@@ -30,7 +30,7 @@ def get_iv(option_type, strike_price, expiration_date, risk_free_rate, underlyin
         a, b = interval
         try:
             implied_volatility = optimize.newton(black_scholes, x0=(a + b) / 2, tol=1e-6)
-            results.append(implied_volatility*100)
+            results.append(round(implied_volatility * 100, 2))
         except RuntimeError:
             pass
     if len(results)==0:
